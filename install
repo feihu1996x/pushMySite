@@ -36,6 +36,5 @@ echo "starting install to $install_path ..."
 mkdir -p $install_path
 cp ./* $install_path/ -rfv
 ln -fs $install_path/pushMySite /usr/bin/pushMySite
-
 echo 'installed successfully!'
 
