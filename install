@@ -11,10 +11,10 @@ echo 'Where do you want to install?'
 read install_path
 
 # create launch script
-echo 'starting launch script ...'
+echo 'starting to create launch script ...'
 touch pushMySite
 chmod +x pushMySite
-echo '#!/bin/sh' >> pushMySite
+echo '#!/bin/sh' > pushMySite
 echo '' >>  pushMySite
 echo '# @file: pushMySite' >> pushMySite
 echo '# @brief: launch pushMySite script' >> pushMySite
@@ -22,12 +22,12 @@ echo '# @author: feihu1996.cn' >> pushMySite
 echo '# @date: '$(date) >> pushMySite
 echo '# @version: 1.0' >> pushMySite
 echo '' >> pushMySite
-echo 'if test $1 = --log' >> pushMySite
+echo 'if [ "$1" = "--log" ]' >> pushMySite
 echo 'then' >> pushMySite
-echo '    cat '$install_path/pushmysite.log >> pushMySite
+echo "    cat $install_path/pushmysite.log | less" >> pushMySite
 echo 'else' >> pushMySite
 echo '    cd '$install_path >> pushMySite
-echo '    python3 pushMySite.py' >> pushMySite
+echo '    sudo python3 pushMySite.py' >> pushMySite
 echo 'fi' >> pushMySite
 echo 'launch script has been created.'
 
@@ -35,6 +35,7 @@ echo 'launch script has been created.'
 echo "starting install to $install_path ..."
 mkdir -p $install_path
 cp ./* $install_path/ -rfv
+chown -R root $install_path
 ln -fs $install_path/pushMySite /usr/bin/pushMySite
 echo 'installed successfully!'
 
