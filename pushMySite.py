@@ -8,6 +8,7 @@
 @version: 1.0
 """
 
+import logging
 import os
 import re
 import subprocess
@@ -24,6 +25,8 @@ class PushMySite:
         self.articleUrlPattern = re.compile('http://www\.feihu1996\.cn/\?id=\d{1,}')
 
         self.articleUrls = set()
+        
+        logging.basicConfig(filename='pushmysite.log', level=logging.INFO, format='%(asctime)s-%(levelname)s-%(message)s')
 
 
     def start(self):
@@ -58,6 +61,8 @@ class PushMySite:
         result = str(result)
         result = re.sub('b|\'', '', result)
         os.remove("temp")
+        
+        logging.info(result)
 
         return result
 
